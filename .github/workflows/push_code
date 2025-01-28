@@ -1,0 +1,31 @@
+name: Push Code
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push_code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "ChatGPTSofia"
+          git config --global user.email "chatgpt@example.com"
+
+      - name: Add code
+        run: |
+          echo "code changes here" >> file.txt  # Exemple de modification de code
+          git add .
+          git commit -m "Automated code update"
+          git push
+
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push origin main
